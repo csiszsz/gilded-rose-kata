@@ -14,34 +14,42 @@ class GildedRose {
 
     void updateQuality() {
         for (Item item : items) {
-
-            if (item.name.equals(AGED_BRIE)) {
-                increaseQuality(item);
-            } else if (item.name.equals(BACKSTAGE_PASSES)) {
-                updateBackStagePassesQuality(item);
-
-            } else {
-                if (!item.name.equals(SULFURAS)) {
-                    decreaseQuality(item);
-                }
-            }
-
-
             if (!item.name.equals(SULFURAS)) {
+                switch (item.name) {
+                    case AGED_BRIE:
+                        increaseQuality(item);
+                        break;
+                    case BACKSTAGE_PASSES:
+                        updateBackStagePassesQuality(item);
+                        break;
+                    case CONJURED:
+                        decreaseQuality(item);
+                        decreaseQuality(item);
+                        break;
+                    default:
+                        decreaseQuality(item);
+                        break;
+                }
+
+
                 decreaseSellIn(item);
-            }
 
 
-            if (item.sellIn < 0) {
-                if (item.name.equals(AGED_BRIE)) {
-                    increaseQuality(item);
-                } else {
-                    if (item.name.equals(BACKSTAGE_PASSES)) {
-                        item.quality = 0;
-                    } else {
-                        if (!item.name.equals(SULFURAS)) {
+                if (item.sellIn < 0) {
+                    switch (item.name) {
+                        case AGED_BRIE:
+                            increaseQuality(item);
+                            break;
+                        case BACKSTAGE_PASSES:
+                            item.quality = 0;
+                            break;
+                        case CONJURED:
                             decreaseQuality(item);
-                        }
+                            decreaseQuality(item);
+                            break;
+                        default:
+                            decreaseQuality(item);
+                            break;
                     }
                 }
             }
@@ -53,26 +61,24 @@ class GildedRose {
         if (item.sellIn < 11) {
             increaseQuality(item);
         }
-
         if (item.sellIn < 6) {
             increaseQuality(item);
         }
-
     }
 
     private void decreaseSellIn(Item item) {
-        item.sellIn = item.sellIn - 1;
+        item.sellIn--;
     }
 
     private void decreaseQuality(Item item) {
         if (item.quality > 0) {
-            item.quality = item.quality - 1;
+            item.quality--;
         }
     }
 
     private void increaseQuality(Item item) {
         if (item.quality < 50) {
-            item.quality = item.quality + 1;
+            item.quality++;
         }
     }
 }

@@ -14,7 +14,7 @@ class GildedRoseTest {
     }
 
     @Test
-    void sellInAndQualityShouldLowersByEachDay() {
+    void sellInAndQualityShouldDecreaseByEachDay() {
         Item item = new Item("Random item", 11, 42);
 
         GildedRose app = addAndUpdateItem(item);
@@ -24,12 +24,22 @@ class GildedRoseTest {
     }
 
     @Test
-    void qualityShouldDegradeTwiceAsFastAfterSellInNegative() {
+    void qualityShouldDecreaseByTwoWhenSellInNegative() {
         Item item = new Item("Random item", -11, 42);
 
         GildedRose app = addAndUpdateItem(item);
 
         assertSingleItemSellIn(-12, app);
+        assertSingleItemQuality(40, app);
+    }
+
+    @Test
+    void qualityShouldDecreaseByTwoWhenSellInZero() {
+        Item item = new Item("Random item", 0, 42);
+
+        GildedRose app = addAndUpdateItem(item);
+
+        assertSingleItemSellIn(-1, app);
         assertSingleItemQuality(40, app);
     }
 
@@ -74,7 +84,7 @@ class GildedRoseTest {
     }
 
     @Test
-    void backstagePassesQualityShouldIncreaseAndSellInShouldDescrease() {
+    void backstagePassesQualityShouldIncreaseAndSellInShouldDecrease() {
         Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 42);
 
         GildedRose app = addAndUpdateItem(item);
@@ -121,6 +131,36 @@ class GildedRoseTest {
 
         assertSingleItemSellIn(-1, app);
         assertSingleItemQuality(0, app);
+    }
+
+    @Test
+    void conjuredQualityShouldDecreaseByTwoWhenSellInStrictlyPositive() {
+        Item item = new Item("Conjured Mana Cake", 11, 42);
+
+        GildedRose app = addAndUpdateItem(item);
+
+        assertSingleItemSellIn(10, app);
+        assertSingleItemQuality(40, app);
+    }
+
+    @Test
+    void conjuredQualityShouldDecreaseByFourWhenSellInNegative() {
+        Item item = new Item("Conjured Mana Cake", -11, 42);
+
+        GildedRose app = addAndUpdateItem(item);
+
+        assertSingleItemSellIn(-12, app);
+        assertSingleItemQuality(38, app);
+    }
+
+    @Test
+    void conjuredQualityShouldDecreaseByFourWhenSellInZero() {
+        Item item = new Item("Conjured Mana Cake", 0, 42);
+
+        GildedRose app = addAndUpdateItem(item);
+
+        assertSingleItemSellIn(-1, app);
+        assertSingleItemQuality(38, app);
     }
 
 
