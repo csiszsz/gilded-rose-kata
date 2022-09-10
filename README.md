@@ -3,7 +3,7 @@
 [Gilded Rose Requirements Specification](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/master/GildedRoseRequirements.txt)
 
 ## Solution
-I did the refactoring in multiple steps:
+Refactoring has been done in multiple steps:
 - Added unit tests to make sure nothing will break while refactoring
 - Cleaned up the code a bit to make it a bit more readable
 - Extracted hardcoded strings
